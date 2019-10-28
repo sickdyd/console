@@ -1,0 +1,52 @@
+#console-container {
+  resize: none;
+
+  width: 100vw;
+  height: auto;
+  min-height: 100vh;
+
+  font-size: calc(5px + 2.8vmin);
+
+}
+
+#main-box {
+
+  width: 100vw;
+  height: auto;
+  min-height: 100vh;
+
+  overflow-y: visible;
+}
+
+#console-link {
+  color: rgb(221, 144, 55);
+}
+
+#console-link:active {
+  color: rgb(255, 255, 0);
+  text-shadow: 0px 0px 10px red;
+}
+
+#console-link:hover {
+  border: 0px;
+}
+
+#dos-text {
+  white-space: pre-wrap;
+}
+
+#handle {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 6vh;
+  width: 100vw;
+}
+
+
+#line-container {
+  line-height: 4.5vmin;
+  flex-direction: column;
+  align-content: flex-start;
+  align-items: flex-start;
+}
