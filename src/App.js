@@ -17,13 +17,11 @@ function App() {
     <div className="App">
       <header id={isMobile ? 'App-header' : ''} className='App-header'>
         <Console/>
-        {!isMobile ?
-        <div className='fader-container'>
+
+        <div className='fader-container' style={isMobile ? {position: "fixed"} : {}}>
           <Walloflinks />
         </div>
-        :
-        ''
-        }
+
       </header>
     </div>
   );
