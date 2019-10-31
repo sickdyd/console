@@ -38,6 +38,27 @@ export default function Console() {
   },[]);
 
   React.useEffect(()=>{
+    // This will show the welcome message with the commands
+    executeCommand('help');
+    loadTime = new Date() - openTime;
+  },[]);
+
+  const removeScrollElement = () => {
+
+    if (document.querySelector('.scroll-here')) {
+      // Here we remove the scroll-to line to prevent scrolling again there
+      const removeScrollClass = dosbox.map((e)=>{
+        if (e.classes === 'scroll-here') e = '';
+        return e;
+      });
+      return removeScrollClass;
+    } else {
+      return dosbox;
+    }
+    
+  }
+
+  React.useEffect(()=>{
 
     // Used to debounce the resize event
     function debounce(fn, ms) {
@@ -65,6 +86,7 @@ export default function Console() {
 
     const handleDragConsole = ()=> {
       setConsoleLocation({...consoleLocation, left: parseInt(mainWindow.getBoundingClientRect().left), top: parseInt(mainWindow.getBoundingClientRect().top) });
+      setDosbox(removeScrollElement);
     }
 
     const handleResizeConsole = (e)=> {
@@ -74,17 +96,24 @@ export default function Console() {
         if (width > window.innerWidth) width = window.innerWidth - mainWindow.getBoundingClientRect().left;
         if (height > window.innerHeight) height = window.innerHeight - mainWindow.getBoundingClientRect().top;
         setConsoleLocation({...consoleLocation, width: width, height: height })
+        setDosbox(removeScrollElement);
       }
+    }
+
+    const handleRemoveScrollElement = ()=> {
+      
     }
 
     if (!isMobile) {
 
       // Scroll down to the bottom of the console
       const mainConsole = document.querySelector('.main-box');
+
       mainConsole.scrollTop = mainConsole.scrollHeight;
 
       // Sometimes the console is scrolled to a specific line (that has the class scroll-here) in case the text is too long,
       // so the user can see the first line and scroll down himself
+      
       const scrollHere = document.querySelector('.scroll-here');
 
       if (scrollHere) {
@@ -103,17 +132,11 @@ export default function Console() {
       if (!isMobile) {
         document.querySelector('.handle').removeEventListener('mouseup', handleDragConsole);
         mainWindow.removeEventListener('mouseup', handleResizeConsole);
-        window.removeEventListener('resize', debouncedHandleResize)
+        window.removeEventListener('resize', debouncedHandleResize);
       }
     }
 
   })
-
-  React.useEffect(()=>{
-    // This will show the welcome message with the commands
-    executeCommand('help');
-    loadTime = new Date() - openTime;
-  },[]);
 
   // After sanitizing the input we execute the command
   function handleKey(e) {
@@ -123,6 +146,7 @@ export default function Console() {
           executeCommand(sanitizer(input));
           break;
         default:
+          if (document.querySelector('.scroll-here')) setDosbox(removeScrollElement);
           break;
       }
   }
@@ -167,17 +191,19 @@ export default function Console() {
 
     let tempCommands = [];
 
-    if (isMobile) {
-      tempCommands = [addConsoleOutput(command, 'info', 'C:\\>' + command)]
-    } else {
-      // Here we remove the scroll-to line to prevent scrolling again there
-      const removeScrollClass = dosbox.map((e)=>{
-        if (e.classes === 'scroll-here') e = '';
-        return e;
-      })
-      tempCommands = [...removeScrollClass, addConsoleOutput(command, 'info', 'C:\\>' + command)];
+    if (!isMobile) {
+      if (document.querySelector('.scroll-here')) {
+        // Here we remove the scroll-to line to prevent scrolling again there
+        const removeScrollClass = dosbox.map((e)=>{
+          if (e.classes === 'scroll-here') e = '';
+          return e;
+        });
+        tempCommands = [...removeScrollClass, addConsoleOutput(command, 'info', 'C:\\>' + command)];
+      } else {
+        tempCommands = [...dosbox, addConsoleOutput(command, 'info', 'C:\\>' + command)];;
+      }
     }
-
+    
     // Add a blank line to improve layout
     command !== '' && tempCommands.push(addConsoleOutput('', 'info', ' '));
 
@@ -188,7 +214,7 @@ export default function Console() {
 
     switch(command.toLowerCase().trim()) {
       case 'author':
-          !isMobile && tempCommands.push(addConsoleOutput('', 'info', ' ', '', '', 'scroll-here'));
+          tempCommands.push(addConsoleOutput('', 'info', ' ', '', '', 'scroll-here'));
           tempCommands.push(addConsoleOutput('', 'info', 'Reale Roberto Josef Antonio', '', '', 'fancy'));
           tempCommands.push(addConsoleOutput('', 'info', ' '));
           tempCommands.push(addConsoleOutput('', 'info', 'Scroll down to read more...'));
@@ -324,7 +350,7 @@ export default function Console() {
   function ConvertToHtml(props) {
     switch (props.command.type) {
       case 'ascii':
-        return <div className='ascii-text'>
+        return <div id={isMobile ? 'ascii-text' : ''} className='ascii-text'>
                 {props.command.text.map((t, index)=>{
                   return <span key={Math.random() * index}>{t}<br/></span>
                 })}
@@ -382,7 +408,8 @@ export default function Console() {
 
         {!isMobile && <div className='handle'>D  R  A  G    M  E</div>}
 
-        <div id={isMobile ? 'main-box' : ''} className='main-box' onClick={()=>!isMobile && document.querySelector('.dos-input').focus()}>
+        <div id={isMobile ? 'main-box' : ''} className='main-box'>
+        {/* <div id={isMobile ? 'main-box' : ''} className='main-box' onClick={()=>!isMobile && document.querySelector('.dos-input').focus()}> */}
 
             <div className='.dosbox'>
 
@@ -391,11 +418,11 @@ export default function Console() {
                 })
               }
 
-            <div id={isMobile ? 'line-container' : ''} className='line-container'>
+            <div id={isMobile ? 'line-container' : ''} className={isMobile ? 'line-container command-line-mobile' : 'line-container'}>
 
                 <span className='fancy'>C:\></span>
                 
-                {!isMobile && <input
+                {!isMobile ? <input
                   autoFocus
                   type='text'
                   value={input}
@@ -403,7 +430,9 @@ export default function Console() {
                   className='dos-input'
                   onChange={e=>setInput(e.target.value)}
                   onKeyDown={e=>handleKey(e)}
-                />}
+                /> :
+                  'prompt unavailable on mobile'
+                }
 
             </div>
 

@@ -78,6 +78,7 @@ export default function Walloflinks() {
   function createTitlesArray(titles, howMany) {
 
     howMany = isFirefox ? 70 : howMany;
+    howMany = isMobile ? 20 : howMany;
 
     return new Promise(async (resolve) => { 
 

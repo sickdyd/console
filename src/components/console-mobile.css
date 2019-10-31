@@ -1,4 +1,5 @@
 #console-container {
+  
   resize: none;
 
   width: 100vw;
@@ -43,10 +44,18 @@
   width: 100vw;
 }
 
+#ascii-text {
+  font-size: 3px;
+}
+
 
 #line-container {
   line-height: 4.5vmin;
   flex-direction: column;
   align-content: flex-start;
   align-items: flex-start;
+}
+
+.command-line-mobile {
+  flex-direction: row !important;
 }

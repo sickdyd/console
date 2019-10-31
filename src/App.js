@@ -18,7 +18,7 @@ function App() {
       <header id={isMobile ? 'App-header' : ''} className='App-header'>
         <Console/>
 
-        <div className='fader-container' style={isMobile ? {position: "fixed"} : {}}>
+        <div className='fader-container' style={isMobile ? {position: 'fixed', top: '0', left: '0'} : {}}>
           <Walloflinks />
         </div>
 
