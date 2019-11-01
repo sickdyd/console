@@ -9,6 +9,8 @@ import './App.css';
 
 function App() {
 
+  const [background, setBackground] = React.useState(true);
+
   React.useEffect(()=>{
     isMobile && (document.body.style.position = 'relative')
   })
@@ -16,11 +18,15 @@ function App() {
   return (
     <div className="App">
       <header id={isMobile ? 'App-header' : ''} className='App-header'>
-        <Console/>
+        <Console
+          background={background}
+          setBackground={setBackground}
+        />
 
+        {background && !isMobile &&
         <div className='fader-container' style={isMobile ? {position: 'fixed', top: '0', left: '0'} : {}}>
-          <Walloflinks />
-        </div>
+          <Walloflinks/>
+        </div>}
 
       </header>
     </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import dompurify from 'dompurify';
-
 import Draggable from 'react-draggable';
 
 import { isMobile } from 'react-device-detect';
@@ -26,7 +25,7 @@ import './console-mobile.css';
 const openTime = new Date();
 let loadTime = '';
 
-export default function Console() {
+export default function Console(props) {
 
   const [input, setInput] = React.useState('');
   const [dosbox, setDosbox] = React.useState([]);
@@ -91,6 +90,7 @@ export default function Console() {
 
     const handleResizeConsole = (e)=> {
       if (e.target.classList.contains('console-container')) {
+        console.log('resized');
         let width = mainWindow.getBoundingClientRect().width;
         let height = mainWindow.getBoundingClientRect().height;
         if (width > window.innerWidth) width = window.innerWidth - mainWindow.getBoundingClientRect().left;
@@ -98,10 +98,6 @@ export default function Console() {
         setConsoleLocation({...consoleLocation, width: width, height: height })
         setDosbox(removeScrollElement);
       }
-    }
-
-    const handleRemoveScrollElement = ()=> {
-      
     }
 
     if (!isMobile) {
@@ -124,6 +120,7 @@ export default function Console() {
       // To allow the user to drag the window around
       document.querySelector('.handle').addEventListener('mouseup', handleDragConsole);
       mainWindow.addEventListener('mouseup', handleResizeConsole);
+      //mainWindow.addEventListener('mouseleave', handleResizeConsole)
       window.addEventListener('resize', debouncedHandleResize);
 
     }
@@ -132,6 +129,7 @@ export default function Console() {
       if (!isMobile) {
         document.querySelector('.handle').removeEventListener('mouseup', handleDragConsole);
         mainWindow.removeEventListener('mouseup', handleResizeConsole);
+        //mainWindow.removeEventListener('mouseleave', handleResizeConsole)
         window.removeEventListener('resize', debouncedHandleResize);
       }
     }
@@ -266,7 +264,7 @@ export default function Console() {
         !isMobile && tempCommands.push(addConsoleOutput('dir', 'link', 'DIR', 'Displays a list of files and subdirectories in a directory.'));
         !isMobile && tempCommands.push(addConsoleOutput('help', 'link', 'HELP', 'Provides Help information for the console commands.'));
         tempCommands.push(addConsoleOutput('info', 'link', 'INFO', 'Get some technical information about the console.'));
-        !isMobile && tempCommands.push(addConsoleOutput('toggle', 'link', 'TOGGLE', 'Toggle background text-shadow effect to improve performance.'));
+        !isMobile && tempCommands.push(addConsoleOutput('toggle', 'link', 'TOGGLE', 'Show or hide the background links.'));
         !isMobile && tempCommands.push(addConsoleOutput('', 'info', ' '));
         !isMobile && tempCommands.push(addConsoleOutput('', 'info', 'Click on the left to open the link or type the command.'));
         break;
@@ -318,8 +316,9 @@ export default function Console() {
           window.open('https://sugoi.online/sickdyd/roberto_reale_extended.pdf', "_blank")
           break;
       case 'toggle':
-          tempCommands.push(addConsoleOutput('', 'info', 'Toggling background text-shadow effects...'));
-          Array.from(document.getElementsByClassName('hex')).forEach(e=>e.classList.toggle('text-shadow'));
+          tempCommands.push(addConsoleOutput('', 'info', props.background ? 'Removing background...' : 'Adding background...'));
+          //Array.from(document.getElementsByClassName('hex')).forEach(e=>e.classList.toggle('text-shadow'));
+          props.setBackground(!props.background);
           break;
       case '':
         break;
