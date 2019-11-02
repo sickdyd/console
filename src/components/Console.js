@@ -239,15 +239,14 @@ export default function Console(props) {
         tempCommands = [];
         break;
       case 'dir':
+      //(command, type, text, description, icon, classes) {
         tempCommands.push(addConsoleOutput('', 'info', 'Volume in drive C is ROB_OS'));
         tempCommands.push(addConsoleOutput('', 'info', 'Volume Serial Number is R0BY-R34'));
         tempCommands.push(addConsoleOutput('', 'info', ' '));
-        tempCommands.push(addConsoleOutput('', 'info', 'Type the file name to open it.', '', '', 'fancy'));
-        tempCommands.push(addConsoleOutput('', 'info', ' '));
-        tempCommands.push(addConsoleOutput('', 'info', '23/09/2019 17:10      8,526 cat.bat'));
-        tempCommands.push(addConsoleOutput('', 'info', '28/11/2016 17:10     12,954 picture.bat'));
-        tempCommands.push(addConsoleOutput('', 'info', '24/10/2019 11:13        501 github.lnk'));
-        tempCommands.push(addConsoleOutput('', 'info', '24/10/2019 11:13     81,770 resume.pdf'));
+        tempCommands.push(addConsoleOutput('cat'    , 'dir', 'cat.bat',     ['23/09/2019 17:10', '8,526']));
+        tempCommands.push(addConsoleOutput('picture', 'dir', 'picture.bat', ['28/11/2016 17:10', '12,954']));
+        tempCommands.push(addConsoleOutput('github' , 'dir', 'github.lnk',  ['24/10/2019 11:13', '501']));
+        tempCommands.push(addConsoleOutput('resume' , 'dir', 'resume.pdf',  ['24/10/2019 11:13', '81,770']));
         break;
       case 'back':
       case 'home':
@@ -381,6 +380,25 @@ export default function Console(props) {
             {isMobile && <br/>}
           </div>
         )
+      case 'dir':
+          return (
+          <div key={props.index} id={isMobile ? 'line-container' : ''} className='line-container'>
+            <span className='dos-text' style={{width: 'auto', alignSelf: 'flex-start'}} >
+                {props.command.description[0]}
+            </span>
+            <span className='dos-text' style={{width: '15%', alignSelf: 'flex-end', textAlign: 'right', marginRight: '15px'}} >
+                {props.command.description[1]}
+            </span>
+            <span style={{width: '20vmax', alignSelf: isMobile ? 'flex-start' : 'flex-start'}}
+                  id={isMobile ? 'console-link' : ''} className='console-link'
+                  onClick={()=>(props.command.command.includes('http') || props.command.command.includes('mailto')) ? window.open(props.command.command, "_blank") : executeCommand(props.command.command)}
+            >
+              {props.command.icon && <img className='icon' src={props.command.icon} alt={''}/>}
+              {props.command.text ? props.command.text : props.command.text}
+            </span>
+            {isMobile && <br/>}
+          </div>
+          )
       default:
         break;
     }
