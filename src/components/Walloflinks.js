@@ -30,7 +30,7 @@ export default function Walloflinks() {
 
     const dummyTitles = [];
     for (let i = 0; i < 10; i++) dummyTitles.push({ title: Math.random().toString(36).slice(-5), link: ''});
-    createTitlesArray(dummyTitles, 100).then( refinedTitles => setHive(refinedTitles));
+    createTitlesArray(dummyTitles, 40).then( refinedTitles => setHive(refinedTitles));
 
     // For each url provided, send an axios request, if one of the requests succeed, retrieve the titles
 
@@ -46,7 +46,7 @@ export default function Walloflinks() {
           completed = true;
           console.log('Setting background titles from: ' + URL);
           const rawTitles = extractTitles(res);
-          createTitlesArray(rawTitles, 100).then( refinedTitles => setHive(refinedTitles));
+          createTitlesArray(rawTitles, 40).then( refinedTitles => setHive(refinedTitles));
         }
       })
       .catch(e=>{
@@ -77,7 +77,7 @@ export default function Walloflinks() {
 
   function createTitlesArray(titles, howMany) {
 
-    howMany = isFirefox ? 70 : howMany;
+    howMany = isFirefox ? 20 : howMany;
     howMany = isMobile ? 20 : howMany;
 
     return new Promise(async (resolve) => { 
@@ -132,20 +132,23 @@ export default function Walloflinks() {
     return {__html: sanitizer(v)}
   };
 
-  return (hive.map((hex)=>
-          <div
-            key={hex.id}
-            id={hex.id}
-            className={`hex hex-zoom-out text-shadow`}
-            style={{ width: hex.width, height: hex.height, top: hex.top, left: hex.left }}
-            dangerouslySetInnerHTML={createMarkup(hex.html)}
-            onClick={(e)=>{
-              isMobile ? e.preventDefault() : hex.link && window.open(hex.link, "_blank")}
-            }
-            onMouseOver={(e)=>hex.link ? '' : e.target.style.cursor = 'default'}
-            onMouseEnter={(e)=>!isMobile && startAnimation(e)}
-          />
-      )
+  return (
+      <React.Fragment>
+        {hive.map((hex)=>
+            <div
+              key={hex.id}
+              id={hex.id}
+              className={`hex hex-zoom-out text-shadow`}
+              style={{ width: hex.width, height: hex.height, top: hex.top, left: hex.left }}
+              dangerouslySetInnerHTML={createMarkup(hex.html)}
+              onClick={(e)=>{
+                isMobile ? e.preventDefault() : hex.link && window.open(hex.link, "_blank")}
+              }
+              onMouseOver={(e)=>hex.link ? '' : e.target.style.cursor = 'default'}
+              onMouseEnter={(e)=>!isMobile && startAnimation(e)}
+        />)}
+        <span class='fps'></span>
+      </React.Fragment>
   ) 
 
 }
