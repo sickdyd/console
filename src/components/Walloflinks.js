@@ -147,7 +147,6 @@ export default function Walloflinks() {
               onMouseOver={(e)=>hex.link ? '' : e.target.style.cursor = 'default'}
               onMouseEnter={(e)=>!isMobile && startAnimation(e)}
         />)}
-        <span class='fps'></span>
       </React.Fragment>
   ) 
 

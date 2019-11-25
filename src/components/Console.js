@@ -219,7 +219,7 @@ export default function Console(props) {
           tempCommands.push(addConsoleOutput('', 'info', ' '));
           tempCommands.push(addConsoleOutput('mailto:roberto.reale.ja@gmail.com', 'link', 'EMAIL', 'roberto.reale.ja@gmail.com.', emailIcon));
           tempCommands.push(addConsoleOutput('https://github.com/sickdyd', 'link', 'GITHUB', 'Check out my GitHub.', githubIcon));
-          tempCommands.push(addConsoleOutput('https://sugoi.online/sickdyd/roberto_reale_extended.pdf', 'link', 'RESUME', 'Download my resume.', pdfIcon));
+          tempCommands.push(addConsoleOutput('https://sugoi.online/sickdyd/roberto_reale_online.pdf', 'link', 'RESUME', 'Download my resume.', pdfIcon));
           tempCommands.push(addConsoleOutput('https://www.youtube.com/channel/UC1qfRe9FZ46DqRvkl6XoK2g', 'link', 'YOUTUBE', 'Check out my music on YouTube.', youtubeIcon));
           tempCommands.push(addConsoleOutput('https://sugoi.online/', 'link', 'SUGOI', 'Take a look at my Italian food events.', pizzaIcon));
           tempCommands.push(addConsoleOutput('', 'info', ' '));
@@ -312,7 +312,7 @@ export default function Console(props) {
       case 'resume':
       case 'resume.pdf':
           tempCommands.push(addConsoleOutput('', 'info', 'Opening resume...',));
-          window.open('https://sugoi.online/sickdyd/roberto_reale_extended.pdf', "_blank")
+          window.open('https://sugoi.online/sickdyd/roberto_reale_online.pdf', "_blank")
           break;
       case 'toggle':
           tempCommands.push(addConsoleOutput('', 'info', props.background ? 'Removing background...' : 'Adding background...'));
