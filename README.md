@@ -1,7 +1,7 @@
 
 ![Alt text](/shot.jpg?raw=true "Screenshot")
 
-View a live version here: http://sickdyd.github.io/sickdyd/
+View a live version here: http://sickdyd.github.io/console/
 
 # How to install
 
