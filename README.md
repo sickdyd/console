@@ -1,7 +1,7 @@
 
 ![Alt text](/shot.jpg?raw=true "Screenshot")
 
-View a live version here: https://sugoi.online/sickdyd
+View a live version here: http://sickdyd.github.io/sickdyd/
 
 # How to install
 
