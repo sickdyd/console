@@ -12,7 +12,7 @@ import reactIcon from '../media/react.svg';
 import visualIcon from '../media/vstudio.svg';
 import stackIcon from '../media/so.svg';
 import newsIcon from '../media/news.svg';
-import pdfIcon from '../media/pdf.svg';
+// import pdfIcon from '../media/pdf.svg';
 import ozIcon from '../media/oz.svg';
 import commodoreIcon from '../media/commodore.svg';
 import youtubeIcon from '../media/youtube.svg';
