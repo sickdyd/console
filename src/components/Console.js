@@ -219,7 +219,7 @@ export default function Console(props) {
           tempCommands.push(addConsoleOutput('', 'info', ' '));
           tempCommands.push(addConsoleOutput('mailto:roberto.reale.ja@gmail.com', 'link', 'EMAIL', 'roberto.reale.ja@gmail.com.', emailIcon));
           tempCommands.push(addConsoleOutput('https://github.com/sickdyd', 'link', 'GITHUB', 'Check out my GitHub.', githubIcon));
-          tempCommands.push(addConsoleOutput('https://sugoi.online/sickdyd/roberto_reale_online.pdf', 'link', 'RESUME', 'Download my resume.', pdfIcon));
+          // tempCommands.push(addConsoleOutput('https://sugoi.online/sickdyd/roberto_reale_online.pdf', 'link', 'RESUME', 'Download my resume.', pdfIcon));
           tempCommands.push(addConsoleOutput('https://www.youtube.com/channel/UC1qfRe9FZ46DqRvkl6XoK2g', 'link', 'YOUTUBE', 'Check out my music on YouTube.', youtubeIcon));
           tempCommands.push(addConsoleOutput('https://sugoi.online/', 'link', 'SUGOI', 'Take a look at my Italian food events.', pizzaIcon));
           tempCommands.push(addConsoleOutput('', 'info', ' '));
@@ -246,7 +246,7 @@ export default function Console(props) {
         tempCommands.push(addConsoleOutput('cat'    , 'dir', 'cat.bat',     ['23/09/2019 17:10', '8,526']));
         tempCommands.push(addConsoleOutput('picture', 'dir', 'picture.bat', ['28/11/2016 17:10', '12,954']));
         tempCommands.push(addConsoleOutput('github' , 'dir', 'github.lnk',  ['24/10/2019 11:13', '501']));
-        tempCommands.push(addConsoleOutput('resume' , 'dir', 'resume.pdf',  ['24/10/2019 11:13', '81,770']));
+        // tempCommands.push(addConsoleOutput('resume' , 'dir', 'resume.pdf',  ['24/10/2019 11:13', '81,770']));
         break;
       case 'back':
       case 'home':
@@ -309,11 +309,11 @@ export default function Console(props) {
           tempCommands.push(addConsoleOutput('', 'ascii', ascii_cat));
           tempCommands.push(addConsoleOutput('', 'info', ' '));
         break;
-      case 'resume':
-      case 'resume.pdf':
-          tempCommands.push(addConsoleOutput('', 'info', 'Opening resume...',));
-          window.open('https://sugoi.online/sickdyd/roberto_reale_online.pdf', "_blank")
-          break;
+      // case 'resume':
+      // case 'resume.pdf':
+      //     tempCommands.push(addConsoleOutput('', 'info', 'Opening resume...',));
+      //     window.open('https://sugoi.online/sickdyd/roberto_reale_online.pdf', "_blank")
+      //     break;
       case 'toggle':
           tempCommands.push(addConsoleOutput('', 'info', props.background ? 'Removing background...' : 'Adding background...'));
           //Array.from(document.getElementsByClassName('hex')).forEach(e=>e.classList.toggle('text-shadow'));
